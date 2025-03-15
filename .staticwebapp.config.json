@@ -1,0 +1,9 @@
+{
+  "routes": [...],
+  "navigationFallback": {...},
+  "platform": {
+    "apiRuntime": "node:18"
+  },
+  "skipBuild": true,
+  "excludedFiles": ["node_modules/**", "*.git*", "*.mp4", "large-assets/**"]
+}
