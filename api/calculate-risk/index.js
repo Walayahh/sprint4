@@ -89,22 +89,25 @@ function calculateBloodPressure(bp) {
     let category;
     let points;
     
-    // Determine blood pressure category based on systolic and diastolic readings
-    if (bp === 'Normal') {
+    // Determine blood pressure category based on category string
+    if (bp === 'normal') {
         category = 'Normal';
         points = 0;
-    } else if (bp === 'Elevated') {
+    } else if (bp === 'elevated') {
         category = 'Elevated';
         points = 15;
-    } else if (bp === 'Stage 1 Hypertension') {
+    } else if (bp === 'stage1') {
         category = 'Stage 1 Hypertension';
         points = 30;
-    } else if (bp === 'Stage 2 Hypertension') {
+    } else if (bp === 'stage2') {
         category = 'Stage 2 Hypertension';
         points = 75;
-    } else {
+    } else if (bp === 'crisis') {
         category = 'Hypertensive Crisis';
         points = 100;
+    } else {
+        category = 'Unknown';
+        points = 0;
     }
     
     return { category, points };
