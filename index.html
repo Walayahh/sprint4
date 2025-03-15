@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Insurance Risk Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background">
+        <div class="pulse-circle circle-1"></div>
+        <div class="pulse-circle circle-2"></div>
+        <div class="pulse-circle circle-3"></div>
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Health Insurance Risk Calculator</h1>
+            <p class="subtitle">Evaluate customer health risks accurately and efficiently</p>
+        </header>
+
+        <div class="card intro-card" id="introCard">
+            <h2>Welcome to the Health Risk Assessment Tool</h2>
+            <p>This tool helps insurance agents determine the risk category for potential customers based on:</p>
+            <ul>
+                <li>Age</li>
+                <li>Body Mass Index (BMI)</li>
+                <li>Blood Pressure</li>
+                <li>Family Medical History</li>
+            </ul>
+            <p>All calculations are performed securely on our servers to ensure accuracy and consistency.</p>
+            <button class="btn primary-btn" id="startBtn">Start Assessment</button>
+        </div>
+
+        <form id="riskForm" class="card form-card hidden">
+            <div class="form-section" id="personalSection">
+                <h2>Personal Information</h2>
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="Enter customer's full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age (years)</label>
+                    <input type="number" id="age" name="age" min="1" max="120" placeholder="Enter age" required>
+                </div>
+                <button type="button" class="btn next-btn" id="personalNext">Next</button>
+            </div>
+
+            <div class="form-section hidden" id="bmiSection">
+                <h2>Physical Measurements</h2>
+                <div class="form-group">
+                    <label for="height">Height (cm)</label>
+                    <input type="number" id="height" name="height" min="60" placeholder="Enter height in centimeters" required>
+                    <span class="error-message" id="heightError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="weight">Weight (kg)</label>
+                    <input type="number" id="weight" name="weight" min="1" placeholder="Enter weight in kilograms" required>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn back-btn" id="bmiBack">Back</button>
+                    <button type="button" class="btn next-btn" id="bmiNext">Next</button>
+                </div>
+            </div>
+
+            <div class="form-section hidden" id="bpSection">
+                <h2>Blood Pressure Category</h2>
+                <div class="form-group">
+                    <label for="bpCategory">Select Blood Pressure Category</label>
+                    <select id="bpCategory" name="bpCategory" class="custom-select" required>
+                        <option value="" disabled selected>Choose a category</option>
+                        <option value="normal">Normal</option>
+                        <option value="elevated">Elevated</option>
+                        <option value="stage1">Stage 1 Hypertension</option>
+                        <option value="stage2">Stage 2 Hypertension</option>
+                        <option value="crisis">Hypertensive Crisis</option>
+                    </select>
+                </div>
+                <div class="bp-info-card">
+                    <h3>Blood Pressure Categories:</h3>
+                    <ul>
+                        <li><strong>Normal:</strong> Systolic &lt; 120 mmHg and Diastolic &lt; 80 mmHg</li>
+                        <li><strong>Elevated:</strong> Systolic 120-129 mmHg and Diastolic &lt; 80 mmHg</li>
+                        <li><strong>Stage 1 Hypertension:</strong> Systolic 130-139 mmHg or Diastolic 80-89 mmHg</li>
+                        <li><strong>Stage 2 Hypertension:</strong> Systolic ≥ 140 mmHg or Diastolic ≥ 90 mmHg</li>
+                        <li><strong>Hypertensive Crisis:</strong> Systolic &gt; 180 mmHg and/or Diastolic &gt; 120 mmHg</li>
+                    </ul>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn back-btn" id="bpBack">Back</button>
+                    <button type="button" class="btn next-btn" id="bpNext">Next</button>
+                </div>
+            </div>
+
+            <div class="form-section hidden" id="historySection">
+                <h2>Family Medical History</h2>
+                <p>Select all conditions present in immediate family:</p>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="diabetes" name="family_history" value="diabetes">
+                        <label for="diabetes">Diabetes</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="cancer" name="family_history" value="cancer">
+                        <label for="cancer">Cancer</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="alzheimers" name="family_history" value="alzheimers">
+                        <label for="alzheimers">Alzheimer's</label>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn back-btn" id="historyBack">Back</button>
+                    <button type="button" class="btn primary-btn" id="calculateBtn">Calculate Risk</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="card result-card hidden" id="resultCard">
+            <h2>Risk Assessment Results</h2>
+            <div class="loader" id="loader">
+                <div class="spinner"></div>
+                <p>Calculating risk factors...</p>
+            </div>
+            
+            <div id="resultContent" class="hidden">
+                <div class="customer-name">
+                    <strong>Customer:</strong> <span id="resultName"></span>
+                </div>
+                
+                <div class="summary-section">
+                    <h3>Assessment Summary</h3>
+                    <div class="summary-grid">
+                        <div class="summary-item">
+                            <span class="summary-label">Age</span>
+                            <span class="summary-value" id="summaryAge"></span>
+                            <span class="summary-points" id="agePoints"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">BMI</span>
+                            <span class="summary-value" id="summaryBMI"></span>
+                            <span class="summary-points" id="bmiPoints"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Blood Pressure</span>
+                            <span class="summary-value" id="summaryBP"></span>
+                            <span class="summary-points" id="bpPoints"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Family History</span>
+                            <span class="summary-value" id="summaryHistory"></span>
+                            <span class="summary-points" id="historyPoints"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="result-total">
+                    <span>Total Risk Score:</span>
+                    <span id="totalPoints" class="total-points"></span>
+                </div>
+                
+                <div class="risk-category">
+                    <span>Risk Category:</span>
+                    <span id="riskCategory" class="category-badge"></span>
+                </div>
+                
+                <div class="button-group mt-20">
+                    <button class="btn secondary-btn" id="newAssessmentBtn">New Assessment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Health Insurance Risk Calculator | Developed by Your Scrum Team</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

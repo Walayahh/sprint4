@@ -1,0 +1,23 @@
+{
+  "name": "health-insurance-risk-calculator",
+  "version": "1.0.0",
+  "description": "A web application to calculate health insurance risk",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "health",
+    "insurance",
+    "risk",
+    "calculator"
+  ],
+  "author": "Your Scrum Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "azure-functions-core-tools": "^4.0.5198"
+  }
+}
