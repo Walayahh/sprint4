@@ -4,7 +4,8 @@
   "description": "A web application to calculate health insurance risk",
   "scripts": {
     "start": "func start",
-    "test": "echo \"No tests specified\" && exit 0"
+  "test": "echo \"No tests specified\" && exit 0",
+  "build": "echo \"Build completed\"" 
   },
   "keywords": [
     "health",
